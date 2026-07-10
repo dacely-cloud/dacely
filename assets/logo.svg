@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Dacely">
+  <defs>
+    <linearGradient id="dacelyBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e1017"/>
+      <stop offset="1" stop-color="#050609"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#dacelyBg)"/>
+  <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#20242c" stroke-width="1.5"/>
+  <g transform="translate(55,55) scale(2.75) translate(-130.60753,-318.8229)">
+    <path fill="#ffffff" d="m 156.23956,346.14011 -25.63203,25.63202 h 26.45833 a 26.458332,26.458332 0 0 0 22.91385,-13.22916 26.458332,26.458332 0 0 0 3.53208,-12.40286 z m -25.63203,-27.3172 25.63203,25.63203 h 27.27223 a 26.458332,26.458332 0 0 0 -3.53208,-12.40286 26.458332,26.458332 0 0 0 -22.91385,-13.22917 z"/>
+  </g>
+</svg>
