@@ -1,0 +1,84 @@
+{
+    "name": "dacely",
+    "type": "module",
+    "version": "0.0.1",
+    "author": "Dacely",
+    "description": "The Dacely CLI: deploy and manage your apps on the Dacely edge cloud, from a beautiful terminal interface.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dacely-cloud/dacely.git"
+    },
+    "bugs": {
+        "url": "https://github.com/dacely-cloud/dacely/issues"
+    },
+    "engines": {
+        "node": ">=24.0.0"
+    },
+    "bin": {
+        "dacely": "./build/cli.js"
+    },
+    "homepage": "https://dacely.com",
+    "keywords": [
+        "dacely",
+        "cli",
+        "ink",
+        "react",
+        "deploy",
+        "edge",
+        "cloud"
+    ],
+    "license": "BUSL-1.1",
+    "files": [
+        "build",
+        "README.md",
+        "LICENSE",
+        "LICENSE-APACHE-2.0.txt",
+        "NOTICE",
+        "THIRD-PARTY-NOTICES.md"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "tag": "latest"
+    },
+    "scripts": {
+        "dev": "tsx watch src/cli.tsx",
+        "start": "tsx src/cli.tsx",
+        "clean": "rm -rf build",
+        "typecheck": "tsc -p tsconfig.json",
+        "typecheck:build": "tsc -p tsconfig.build.json",
+        "prebuild": "npm run clean",
+        "build": "npm run typecheck:build && esbuild src/cli.tsx --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=build/cli.js --banner:js=\"#!/usr/bin/env node\" --log-level=warning && chmod +x build/cli.js",
+        "prepublishOnly": "npm run build",
+        "lint": "eslint src test",
+        "lint:fix": "eslint src test --fix",
+        "format": "prettier --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
+        "test": "vitest run --coverage",
+        "test:watch": "vitest",
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest run --coverage",
+        "test:all": "npm run lint && npm run typecheck && npm run test"
+    },
+    "dependencies": {
+        "ink": "^7.1.0",
+        "ink-text-input": "^6.0.0",
+        "react": "^19.2.7",
+        "react-devtools-core": "^6.1.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@types/node": "^26.1.1",
+        "@types/react": "^19.2.17",
+        "@vitest/coverage-v8": "^4.1.10",
+        "@vitest/ui": "^4.1.10",
+        "esbuild": "^0.28.1",
+        "eslint": "^10.6.0",
+        "eslint-plugin-react-hooks": "^7.1.1",
+        "ink-testing-library": "^4.0.0",
+        "prettier": "^3.9.5",
+        "tsx": "^4.20.3",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.63.0",
+        "vitest": "^4.1.10"
+    }
+}

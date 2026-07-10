@@ -1,0 +1,26 @@
+Dacely CLI
+Copyright (c) 2026 Dacely <business@dacely.com>
+
+This product is licensed under the Business Source License 1.1 (BUSL-1.1). See
+the LICENSE file for the full terms. The Licensed Work will convert to the
+Apache License, Version 2.0 on the Change Date (2030-07-10); the Change License
+text is included as LICENSE-APACHE-2.0.txt.
+
+Reservation of Rights
+---------------------
+All rights not expressly granted in the LICENSE are reserved by Dacely. No
+license is granted, by implication, estoppel, or otherwise, to any trademark,
+service mark, trade name, logo, or other brand feature of Dacely, including
+without limitation the names "Dacely" and "Dacely CLI" and the Dacely mark.
+You may install, run, use, modify, and redistribute the Licensed Work for any
+purpose, including commercially, under the Additional Use Grant in the LICENSE.
+The only activity that requires a separate commercial license before the Change
+Date is offering the Licensed Work (or a derivative) to third parties as a
+hosted, managed, or standalone product or service that competes with Dacely.
+Contact business@dacely.com.
+
+Third-Party Components
+----------------------
+This software depends on third-party open-source components that are the
+property of their respective owners and are provided under their own licenses.
+Those components and their license texts are listed in THIRD-PARTY-NOTICES.md.
