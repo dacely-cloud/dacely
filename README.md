@@ -10,7 +10,11 @@
 
 <br/>
 
+[![CI](https://img.shields.io/github/actions/workflow/status/dacely-cloud/dacely/ci.yml?branch=main&label=CI&labelColor=0b0d12)](https://github.com/dacely-cloud/dacely/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/dacely.svg?color=2563ff&label=npm&labelColor=0b0d12)](https://www.npmjs.com/package/dacely)
+[![downloads](https://img.shields.io/npm/dm/dacely.svg?color=2563ff&label=downloads&labelColor=0b0d12)](https://www.npmjs.com/package/dacely)
+[![node](https://img.shields.io/badge/node-%3E%3D24-22c55e.svg?labelColor=0b0d12)](https://nodejs.org/)
+[![license](https://img.shields.io/badge/license-BUSL--1.1-8b9ab4.svg?labelColor=0b0d12)](./LICENSE)
 
 </div>
 
@@ -56,25 +60,6 @@ dacely --version       # -v
 | `version`  | `ver`        | Print the CLI version                           |
 | `clear`    | `cls`        | Clear the screen (interactive)                  |
 | `exit`     | `quit`       | Exit the interactive prompt                     |
-
-## Architecture
-
-Pure types in `src/types/`, class-based domain logic in `src/classes/` (one class per command), and the terminal UI in `src/components/`.
-
-```mermaid
-flowchart LR
-    classDef core fill:#0b0d12,stroke:#8ab4ff,stroke-width:2px,color:#dbe8ff;
-    classDef ui fill:#0c1016,stroke:#22c55e,stroke-width:2px,color:#c8f5e2;
-
-    ARGV["argv / prompt"]:::core --> APP["CliApplication"]:::core
-    APP --> RUN["CommandRunner<br/>+ CommandRegistry"]:::core
-    RUN --> RESULT["CommandResult"]:::core
-    APP -->|no args| HOME["interactive home"]:::ui
-    HOME -->|typed command| RUN
-    RESULT --> HOME
-    APP -->|command| STDOUT["prints to stdout"]:::ui
-    RESULT --> STDOUT
-```
 
 ## Development
 
