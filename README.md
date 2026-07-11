@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/dacely-cloud/dacely/main/assets/logo.svg" alt="Dacely" width="120" height="120" />
 
-### Dacely CLI
+# Dacely CLI
 
 <br/>
 
