@@ -4,8 +4,6 @@
 
 # Dacely CLI
 
-<sub>The CLI for <a href="https://dacely.com">Dacely</a>, the application cloud for modern fullstack apps.</sub>
-
 <br/>
 
 [![CI](https://img.shields.io/github/actions/workflow/status/dacely-cloud/dacely/ci.yml?branch=main&label=CI&labelColor=0b0d12)](https://github.com/dacely-cloud/dacely/actions/workflows/ci.yml)
