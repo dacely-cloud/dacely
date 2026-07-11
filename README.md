@@ -4,8 +4,6 @@
 
 # Dacely CLI
 
-### Ship from your terminal.
-
 <sub>The CLI for <a href="https://dacely.com">Dacely</a>, the application cloud for modern fullstack apps.</sub>
 
 <br/>
@@ -14,6 +12,7 @@
 [![npm](https://img.shields.io/npm/v/dacely.svg?color=2563ff&label=npm&labelColor=0b0d12)](https://www.npmjs.com/package/dacely)
 [![downloads](https://img.shields.io/npm/dm/dacely.svg?color=2563ff&label=downloads&labelColor=0b0d12)](https://www.npmjs.com/package/dacely)
 [![node](https://img.shields.io/badge/node-%3E%3D24-22c55e.svg?labelColor=0b0d12)](https://nodejs.org/)
+[![typescript](https://img.shields.io/badge/TypeScript-3178c6.svg?logo=typescript&logoColor=white&labelColor=0b0d12)](https://www.typescriptlang.org/)
 [![license](https://img.shields.io/badge/license-BUSL--1.1-8b9ab4.svg?labelColor=0b0d12)](./LICENSE)
 
 </div>
