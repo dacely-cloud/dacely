@@ -23,67 +23,114 @@ interface HomeViewProps {
 
 const LOGO_ROWS = 8;
 const MAX_RESULT_ROWS = 10;
+// The chrome that always surrounds the result: the logo block, the tagline
+// (marginTop + line), and the prompt (marginTop + border + input) and tooltip
+// (marginTop + two lines) blocks. Used both to center the content and to keep
+// the prompt on screen when a tall result would otherwise crowd it out.
+const CHROME_ROWS = LOGO_ROWS + 2 + 4 + 3;
+const PANEL_CHROME = 4; // marginTop + border(2) + echoed input line.
 
-// The full-screen home: a dotted backdrop with the logo, tagline, optional
-// last-result panel, prompt box, and command tooltip vertically centered.
+// The centered content is at most this wide; the vignette only grows side
+// gutters once the terminal is wider than that (plus a little breathing room).
+const CONTENT_MAX = 72;
+const GUTTER_MAX = 6;
+
+// The full-screen home: a faint vignette backdrop framing the logo, tagline,
+// optional last-result panel, prompt box, and command tooltip, all vertically
+// centered. The root is pinned to the terminal size and clips overflow, so it
+// re-fits cleanly on every resize instead of scrolling.
 export class HomeView extends Component<HomeViewProps> {
     render(): ReactElement {
         const { cols, rows, last, busy, version } = this.props;
         const boxWidth = Math.min(64, Math.max(28, cols - 8));
-        const panelWidth = Math.min(72, Math.max(32, cols - 8));
+        const panelWidth = Math.min(CONTENT_MAX, Math.max(32, cols - 8));
 
-        // Estimate the centered block height so the backdrop bands center it.
-        // The panel block is: marginTop(1) + border(2) + echo(1) + output rows.
-        const resultRows = last ? Math.min(last.result.lines.length, MAX_RESULT_ROWS) : 0;
-        const resultBlock = last ? resultRows + 4 : 0;
-        const contentH = LOGO_ROWS + 2 + resultBlock + 4 + 3;
+        // Cap the result to the vertical room left after the fixed chrome so the
+        // prompt is never pushed off-screen, then estimate the centered block
+        // height so the backdrop bands can center it.
+        const roomForResult = Math.max(0, rows - CHROME_ROWS - PANEL_CHROME);
+        const resultRows = last
+            ? Math.min(last.result.lines.length, MAX_RESULT_ROWS, roomForResult)
+            : 0;
+        const resultBlock = last ? resultRows + PANEL_CHROME : 0;
+        const contentH = CHROME_ROWS + resultBlock;
+
         const topH = Math.max(0, Math.floor((rows - contentH) / 2));
         const botH = Math.max(0, rows - contentH - topH);
 
-        // Note: no fixed height on the outer box. The backdrop band heights sum
-        // with the content to fill the screen; letting it flow (rather than
-        // clamping to `rows`) avoids Ink compressing/overlapping lines if the
-        // content is a row taller than estimated.
+        // Side gutters complete the vignette frame beside the centered content,
+        // but only when the terminal has columns to spare beyond the content.
+        const gutter = Math.max(0, Math.min(GUTTER_MAX, Math.floor((cols - CONTENT_MAX) / 2)));
+
         return (
             <Box
                 flexDirection="column"
-                width={cols}>
+                width={cols}
+                height={rows}
+                overflow="hidden">
                 <BackdropView
                     cols={cols}
+                    rows={rows}
+                    xStart={0}
+                    yStart={0}
+                    width={cols}
                     height={topH}
-                    yOffset={0}
                 />
                 <Box
-                    flexDirection="column"
-                    alignItems="center">
-                    <LogoView />
-                    <Box marginTop={1}>
-                        <Text color={Theme.muted}>{Branding.TAGLINE}</Text>
-                    </Box>
-                    {last ? (
+                    flexDirection="row"
+                    flexShrink={0}>
+                    <BackdropView
+                        cols={cols}
+                        rows={rows}
+                        xStart={0}
+                        yStart={topH}
+                        width={gutter}
+                        height={contentH}
+                    />
+                    <Box
+                        flexGrow={1}
+                        flexDirection="column"
+                        alignItems="center">
+                        <LogoView />
                         <Box marginTop={1}>
-                            <ResultPanelView
-                                input={last.input}
-                                result={last.result}
-                                width={panelWidth}
+                            <Text color={Theme.muted}>{Branding.TAGLINE}</Text>
+                        </Box>
+                        {last ? (
+                            <Box marginTop={1}>
+                                <ResultPanelView
+                                    input={last.input}
+                                    result={last.result}
+                                    width={panelWidth}
+                                />
+                            </Box>
+                        ) : null}
+                        <Box marginTop={1}>
+                            <PromptBoxView
+                                onSubmit={this.props.onSubmit}
+                                width={boxWidth}
+                                busy={busy}
                             />
                         </Box>
-                    ) : null}
-                    <Box marginTop={1}>
-                        <PromptBoxView
-                            onSubmit={this.props.onSubmit}
-                            width={boxWidth}
-                            busy={busy}
-                        />
+                        <Box marginTop={1}>
+                            <TooltipView version={version} />
+                        </Box>
                     </Box>
-                    <Box marginTop={1}>
-                        <TooltipView version={version} />
-                    </Box>
+                    <BackdropView
+                        cols={cols}
+                        rows={rows}
+                        xStart={cols - gutter}
+                        yStart={topH}
+                        width={gutter}
+                        height={contentH}
+                    />
                 </Box>
                 <BackdropView
                     cols={cols}
+                    rows={rows}
+                    xStart={0}
+                    yStart={topH + contentH}
+                    width={cols}
                     height={botH}
-                    yOffset={topH + contentH}
                 />
             </Box>
         );

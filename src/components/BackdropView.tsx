@@ -7,29 +7,35 @@ import { Pattern } from '../classes/Pattern';
 import { Theme } from '../classes/Theme';
 
 interface BackdropViewProps {
+    // Full screen size, so the vignette is computed against absolute position
+    // and stays continuous across every band and gutter that draws it.
     readonly cols: number;
+    readonly rows: number;
+    // The absolute rectangle this band covers.
+    readonly xStart: number;
+    readonly yStart: number;
+    readonly width: number;
     readonly height: number;
-    // Absolute row of the first line, so the diagonal stays continuous across
-    // the bands above and below the centered content.
-    readonly yOffset?: number;
 }
 
-// A band of the faint background pattern.
+// One rectangular band of the faint vignette backdrop.
 export class BackdropView extends Component<BackdropViewProps> {
-    render(): ReactElement {
-        const { cols, height } = this.props;
-        const yOffset = this.props.yOffset ?? 0;
-        const rows: string[] = [];
-        for (let y = 0; y < Math.max(0, height); y++) {
-            rows.push(Pattern.row(cols, yOffset + y));
+    render(): ReactElement | null {
+        const { cols, rows, xStart, yStart, width, height } = this.props;
+        if (width <= 0 || height <= 0) {
+            return null;
+        }
+        const lines: string[] = [];
+        for (let j = 0; j < height; j++) {
+            lines.push(Pattern.row(xStart, yStart + j, width, cols, rows));
         }
         return (
             <Box flexDirection="column">
-                {rows.map((row, index) => (
+                {lines.map((line, index) => (
                     <Text
                         key={index}
                         color={Theme.faint}>
-                        {row}
+                        {line}
                     </Text>
                 ))}
             </Box>
