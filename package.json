@@ -60,7 +60,7 @@
         "test:all": "npm run lint && npm run typecheck && npm run test"
     },
     "dependencies": {
-        "ink": "^7.1.0",
+        "ink": "^7.1.1",
         "ink-text-input": "^6.0.0",
         "react": "^19.2.7",
         "react-devtools-core": "^6.1.2"
